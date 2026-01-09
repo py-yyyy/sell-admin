@@ -1,11 +1,9 @@
 import { Outlet } from 'react-router-dom'
-import './App.scss'
-function App() {
+function Account() {
   return (
     <>
       <Outlet/>
     </>
-  )
+  );
 }
-
-export default App
+export default Account;

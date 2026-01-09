@@ -1,11 +1,9 @@
 import { Outlet } from 'react-router-dom'
-import './App.scss'
-function App() {
+function Statistics() {
   return (
     <>
       <Outlet/>
     </>
-  )
+  );
 }
-
-export default App
+export default Statistics;
