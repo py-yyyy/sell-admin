@@ -1,4 +1,4 @@
-// import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 // function Layout() {
 //   return (
 //     <>
@@ -51,7 +51,7 @@ const App = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            content
+            <Outlet/>
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>

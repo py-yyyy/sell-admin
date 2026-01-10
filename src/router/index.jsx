@@ -1,100 +1,118 @@
-import { createBrowserRouter  } from "react-router-dom";
-import Login from "@/pages/login";
-import Layout from "@/pages/layout";
-import Home from "@/pages/home";
-import Account from "@/pages/account";
-import AccountAdd from "@/pages/account/add";
-import AccountList from "@/pages/account/list";
-import AccountCenter from "@/pages/account/center";
-import AccountEdit from "@/pages/account/edit";
-import Goods from "@/pages/goods";
-import GoodsAdd from "@/pages/goods/add";
-import GoodsList from "@/pages/goods/list";
-import GoodsTypes from "@/pages/goods/types";
-import Order from "@/pages/order";
-import Shop from "@/pages/shop";
-import Statistics from "@/pages/statistics";
-import GoodsStatistics from "@/pages/statistics/goods";
-import OrderStatistics from "@/pages/statistics/order";
+import { createHashRouter, Navigate } from "react-router-dom";
+import { lazy } from 'react'
+const Login = lazy(() => import("@/pages/login"));
+const Layout = lazy(() => import("@/pages/layout"));
+const Home = lazy(() => import("@/pages/home"));
+const AccountAdd = lazy(() => import("@/pages/account/add"));
+const AccountList = lazy(() => import("@/pages/account/list"));
+const AccountCenter = lazy(() => import("@/pages/account/center"));
+const AccountEdit = lazy(() => import("@/pages/account/edit"));
+const GoodsAdd = lazy(() => import("@/pages/goods/add"));
+const GoodsList = lazy(() => import("@/pages/goods/list"));
+const GoodsTypes = lazy(() => import("@/pages/goods/types"));
+const Order = lazy(() => import("@/pages/order"));
+const Shop = lazy(() => import("@/pages/shop"));
+const GoodsStatistics = lazy(() => import("@/pages/statistics/goods"));
+const OrderStatistics = lazy(() => import("@/pages/statistics/order"));
 
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/layout",
-    element: <Layout />,
-    children:[
-        {
-            index:true,
-            element:<Home/>
-        },
-        {
-            path:"account",
-            element:<Account/>,
-            children:[
-                {
-                    index:true,
-                    element:<AccountList/>
-                },
-                {
-                    path:"add",
-                    element:<AccountAdd/>
-                },
-                {
-                    path:"center",
-                    element:<AccountCenter/>
-                },
-                {
-                    path:"edit",
-                    element:<AccountEdit/>
-                }
+const routes = createHashRouter([
+    {
+        path: "/",
+        //一级路由，默认跳转到登录页，重定向
+        element: <Navigate to='/login' />,
+    },
+    {
+        path: '/login',
+        element: <Login />
+    },
+    {
+        path: "/home",
+        element: <Layout />,
+        children: [
+            {
+                index: true,
+                element: <Home />
+            },
             ]
-        },
-        {
-            path:"goods",
-            element:<Goods/>,
-            children:[
-                {
-                    index:true,
-                    element:<GoodsList/>
-                },
-                {
-                    path:"add",
-                    element:<GoodsAdd/>
-                },
-                {
-                    path:"types",
-                    element:<GoodsTypes/>
-                }
-            ]
-        },
-        {
-            path:"order",
-            element:<Order/>
-        },
-        {
-            path:"shop",
-            element:<Shop/>
-        },
-        {
-            path:"statistics",
-            element:<Statistics/>,
-            children:[
-                {
-                    index:true,
-                    element:<GoodsStatistics/>
-                },
-                {
-                    path:"order",
-                    element:<OrderStatistics/>
-                }
-            ]
-        }
-    ]
-  }
+    },
+    {
+        //path属性可以自定义值
+        path: "/account",
+        //访问path就去layout，再去访问子路由
+        element: <Layout />,
+        children: [
+            {
+                //访问/account就去AccountList
+                index: true,
+                element: <AccountList />
+            },
+            {
+                path: "/account/add",
+                element: <AccountAdd />
+            },
+            {
+                path: "/account/center",
+                element: <AccountCenter />
+            },
+            {
+                path: "/account/edit",
+                element: <AccountEdit />
+            },
+        ]
+    },
+    {
+        path: "/goods",
+        element: <Layout />,
+        children: [
+            {
+                index: true,
+                element: <GoodsList />
+            },
+            {
+                path: "/goods/add",
+                element: <GoodsAdd />
+            },
+            {
+                path: "/goods/types",
+                element: <GoodsTypes />
+            },
+        ]
+    },
+    {
+        path: "/order",
+        element: <Layout />,
+        children: [
+            {
+                index: true,
+                element: <Order />
+            },
+        ]
+    },
+    {
+        path: "/shop",
+        element: <Layout />,
+        children: [
+            {
+                index: true,
+                element: <Shop />
+            },
+        ]
+    },
+    {
+        path: "/statistics",
+        element: <Layout />,
+        children: [
+            {
+                index: true,
+                element: <GoodsStatistics />
+            },
+            {
+                path: "/statistics/order",
+                element: <OrderStatistics />
+            },
+        ]
+    }
 ]);
 
-export default router;
+export default routes;

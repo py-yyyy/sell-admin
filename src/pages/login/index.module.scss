@@ -1,0 +1,63 @@
+$sell-main-color-dark: #4495F6;
+$sell-main-color-light: #fffbfc;
+
+html {
+    height: fit-content;
+    background: $sell-main-color-light;
+}
+
+.loginContainer {
+    text-align: center;
+    .loginLogo{
+        background: #fff;
+        height: 80px;
+        width: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin: 50px auto;
+        box-shadow: 0 0.5rem 1rem -0.5rem rgba(0, 0, 0, 0.05);
+        img{
+            height: 50%;
+            width: 50%;
+        }
+    }
+
+    p{
+        color: gray;
+        margin: 0;
+    }
+
+    .loginInputBox {
+        .loginInput {
+            height: 40px !important;
+        }
+        text-align: left;
+        margin-bottom: 30px;
+    }
+
+    .loginTitle {
+        font-size: 28px;
+        font-weight: bold;
+        margin: 0;
+        color: #333;
+    }
+
+    .loginForm {
+        width: 500px;
+        padding: 50px;
+        background: #fff;
+        text-align: center;
+        border-radius: 20px;
+        box-shadow: 0 0.5rem 1rem -0.5rem rgba(0, 0, 0, 0.05);
+        margin: 40px auto 0;
+
+        .loginBtn {
+            width: 70%;
+            height: 40px;
+            font-size: 16px;
+            background: $sell-main-color-dark;
+        }
+    }
+}
