@@ -43,8 +43,13 @@ const routes = createHashRouter([
         element: <Layout />,
         children: [
             {
+                path:"",
+                element:<Navigate to='/account/list' />,
+            },
+            {
                 //访问/account就去AccountList
-                index: true,
+                // index: true,
+                path: "/account/list",
                 element: <AccountList />
             },
             {
@@ -66,7 +71,12 @@ const routes = createHashRouter([
         element: <Layout />,
         children: [
             {
-                index: true,
+                // index: true,
+                path:"",
+                element:<Navigate to='/goods/list' />,
+            },
+            {
+                path: "/goods/list",
                 element: <GoodsList />
             },
             {
@@ -104,7 +114,11 @@ const routes = createHashRouter([
         element: <Layout />,
         children: [
             {
-                index: true,
+                path:"",
+                element:<Navigate to='/statistics/goods' />,
+            },
+            {
+                path: "/statistics/goods",
                 element: <GoodsStatistics />
             },
             {

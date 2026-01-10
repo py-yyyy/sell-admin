@@ -13,12 +13,12 @@ function Login() {
       password: values.password,
     });
     console.log(res)
-    if (res.data.code === 0) {
-      message.info(res.data.msg);
-      localStorage.setItem('token', res.data.token);
+    if (res.code === 0) {
+      message.info(res.msg);
+      localStorage.setItem('token', res.token);
       navigate('/home');
     } else {
-      message.error(res.data.msg);
+      message.error(res.msg);
     }
   };
   const onFinishFailed = errorInfo => {

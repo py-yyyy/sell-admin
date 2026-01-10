@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import routes from './router/index.jsx'
 import { RouterProvider } from 'react-router-dom'
 import App from './App.jsx'
-import '@/common/base.scss'
+import './common/base.scss'
 
 
 createRoot(document.getElementById('root')).render(
