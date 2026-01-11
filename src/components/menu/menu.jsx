@@ -3,16 +3,17 @@ import React, { useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useNavigate, useLocation, useMatches } from 'react-router-dom';
-// import style from './index.module.scss'
+import style from './index.module.scss'
+import logo from '@/assets/sell-logo.png'
 const items = [
     {
         key: '/home',
-        icon: <MailOutlined />,
+        icon: <i className="iconfont icon-shouye1" />,
         label: '首页',
     },
     {
         key: '/account',
-        icon: <AppstoreOutlined />,
+        icon: <i className="iconfont icon-zhanghao" />,
         label: '账号管理',
         children: [
             { key: '/account/list', label: '账号列表' },
@@ -23,7 +24,7 @@ const items = [
     },
     {
         key: '/goods',
-        icon: <SettingOutlined />,
+        icon: <i className="iconfont icon-shangpin2" />,
         label: '商品管理',
         children: [
             { key: '/goods/list', label: '商品列表' },
@@ -33,17 +34,17 @@ const items = [
     },
     {
         key: '/order',
-        icon: <SettingOutlined />,
+        icon: <i className="iconfont icon-dingdan" />,
         label: '订单管理',
     },
     {
         key: '/shop',
-        icon: <SettingOutlined />,
+        icon: <i className="iconfont icon-jinrudianpu" />,
         label: '店铺管理',
     },
     {
         key: '/statistics',
-        icon: <SettingOutlined />,
+        icon: <i className="iconfont icon-shuju1" />,
         label: '统计数据',
         children: [
             { key: '/statistics/goods', label: '商品统计' },
@@ -95,17 +96,22 @@ function MenuComponent() {
     };
     return (
         <>
+            <div style={{ display: 'flex', alignItems: 'center', padding: '10px',background:'#001529' ,height:'60px'}}>
+                <img src={logo} alt="" style={{ width: '40px', height: '40px', margin: '0 10px' }} />
+                <p style={{ color: '#a6adb4'}}>外卖管理系统</p>
+            </div>
             <Menu
-                theme="dark"
                 onClick={({ key }) => {
                     navigate(key);
                 }}
+                theme='dark'
                 mode="inline"
                 defaultSelectedKeys={currentPath}
                 openKeys={stateOpenKeys}
                 onOpenChange={onOpenChange}
-                style={{ width: 200 ,height:'100%'}}
+                style={{ width: 200, height: 'calc(100% - 80px)' }}
                 items={items}
+                className={style.menu}
             />
         </>
     );
