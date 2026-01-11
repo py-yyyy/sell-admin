@@ -94,7 +94,11 @@ const routes = createHashRouter([
         element: <Layout />,
         children: [
             {
-                index: true,
+                path:"",
+                element:<Navigate to='/order' />,
+            },
+            {
+                path: "/order",
                 element: <Order />
             },
         ]
@@ -104,7 +108,11 @@ const routes = createHashRouter([
         element: <Layout />,
         children: [
             {
-                index: true,
+                path:"",
+                element:<Navigate to='/shop' />,
+            },
+            {
+                path: "/shop",
                 element: <Shop />
             },
         ]

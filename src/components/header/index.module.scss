@@ -10,14 +10,19 @@
     display: flex;
     align-items: center;
     font-size: 14px;
+    .headerUserImg{
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+        border: 1px solid #4495F6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10px;
+    }
     img{
         height: 40px;
         width: 40px;
         border-radius: 20px;
-        margin-left: 20px;
-    }
-    p{
-        cursor: pointer;
-        height: 20px;
     }
 }

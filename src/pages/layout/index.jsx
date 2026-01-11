@@ -16,9 +16,7 @@ function Layout() {
             <Header />
           </div>
           <div className={style.content}>
-            <div className={style.contentOutlet}>
               <Outlet className={style.menu} />
-            </div>
           </div>
         </div>
       </div>

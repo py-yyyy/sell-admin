@@ -6,17 +6,20 @@ import { useNavigate } from 'react-router-dom';
 import { Dropdown, Space } from 'antd';
 import { getAccountInfoApi } from '@/api/accountAdd';
 import { serverURL } from '@/utils/request';
+import { useMatches } from 'react-router-dom';
 function Header() {
+    const matches = useMatches();
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
     const [accountInfo, setAccountInfo] = useState({});
     useEffect(() => {
+        console.log(matches);
         async function getInfo() {
-            const res = await getAccountInfoApi({id: user.id});
-            setAccountInfo({...res.accountInfo});
+            const res = await getAccountInfoApi({ id: user.id });
+            setAccountInfo({ ...res.accountInfo });
         }
         getInfo();
-    },[user.id])
+    }, [user.id])
     const items = [
         {
             key: '1',
@@ -58,13 +61,15 @@ function Header() {
                 <div className={style.headerUser}>
                     <Dropdown menu={{ items }}>
                         <a onClick={e => e.preventDefault()}>
-                            <Space style={{cursor: 'pointer'}}>
+                            <Space style={{ cursor: 'pointer' }}>
                                 欢迎 {accountInfo.account} 登录
                                 <DownOutlined />
                             </Space>
                         </a>
                     </Dropdown>
-                    <img src={serverURL + accountInfo.imgUrl} alt="" />
+                    <div className={style.headerUserImg}>
+                        <img src={serverURL + accountInfo.imgUrl} alt="" />
+                    </div>
                 </div>
             </div>
         </>
