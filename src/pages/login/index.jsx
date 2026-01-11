@@ -12,10 +12,9 @@ function Login() {
       account: values.account,
       password: values.password,
     });
-    console.log(res)
     if (res.code === 0) {
       message.info(res.msg);
-      localStorage.setItem('token', res.token);
+      localStorage.setItem('user', JSON.stringify({...res,user:values.account}));
       navigate('/home');
     } else {
       message.error(res.msg);

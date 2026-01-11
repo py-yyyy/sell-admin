@@ -1,4 +1,5 @@
 import axios from 'axios';
+export const serverURL = 'http://8.137.157.16:9002';
 //统一的请求服务器地址
 const instance = axios.create({
     baseURL:'http://8.137.157.16:9002',
@@ -8,9 +9,9 @@ export default instance;
 
 instance.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      config.headers['Authorization'] = `Bearer ${user.token}`;
     }
     return config;
   },

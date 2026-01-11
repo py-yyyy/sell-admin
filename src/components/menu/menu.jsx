@@ -1,9 +1,6 @@
-import { Outlet } from 'react-router-dom'
-import React, { useState } from 'react';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import React, { useState,useEffect } from 'react';
 import { Menu } from 'antd';
 import { useNavigate, useLocation, useMatches } from 'react-router-dom';
-import style from './index.module.scss'
 import logo from '@/assets/sell-logo.png'
 const items = [
     {
@@ -74,8 +71,16 @@ function MenuComponent() {
     const matches = useMatches();
     const currentPath = [matches[0].pathname, location.pathname];
     const [stateOpenKeys, setStateOpenKeys] = useState(currentPath);
+    // 当路由改变时，更新打开项，保持当前层级打开
+    useEffect(() => {
+        function setOpenKeys() {
+            if (location.pathname) {
+                setStateOpenKeys([matches[0].pathname, location.pathname]);
+            }
+        }
+        setOpenKeys();
+    }, [location.pathname, matches]);
     const onOpenChange = openKeys => {
-        console.log(openKeys)
         const currentOpenKey = openKeys.find(key => !stateOpenKeys.includes(key));
         // open
         if (currentOpenKey !== undefined) {
@@ -96,22 +101,23 @@ function MenuComponent() {
     };
     return (
         <>
-            <div style={{ display: 'flex', alignItems: 'center', padding: '10px',background:'#001529' ,height:'60px'}}>
+            <div style={{ display: 'flex', alignItems: 'center', padding: '10px', background: '#001529', height: '60px' }}>
                 <img src={logo} alt="" style={{ width: '40px', height: '40px', margin: '0 10px' }} />
-                <p style={{ color: '#a6adb4'}}>外卖管理系统</p>
+                <p style={{ color: '#a6adb4' }}>外卖管理系统</p>
             </div>
+            {/* 使用 selectedKeys 替代 defaultSelectedKeys ,当路由改变时，自动更新选中项*/}
+            {/* 使用 defaultSelectedKeys存在当在header中跳转到个人中心时无法更新选中项的问题*/}
             <Menu
                 onClick={({ key }) => {
                     navigate(key);
                 }}
                 theme='dark'
                 mode="inline"
-                defaultSelectedKeys={currentPath}
+                selectedKeys={currentPath}
                 openKeys={stateOpenKeys}
                 onOpenChange={onOpenChange}
-                style={{ width: 200, height: 'calc(100% - 80px)' }}
+                style={{ width: 200, height: 'calc(100% - 60px)' }}
                 items={items}
-                className={style.menu}
             />
         </>
     );
