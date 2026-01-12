@@ -1,0 +1,46 @@
+.dataBox {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    .dataItem {
+        width: 460px;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 14px;
+        color: #333;
+        box-sizing: border-box;
+
+
+        .dataItemContent {
+            width: 200px;
+            height: 45%;
+            background-color: #fff;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            p{
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+            }
+            &:hover{
+                background-color: #fffbfc;
+                transform: translateY(-5px);
+            }
+        }
+    }
+
+    .echart {
+        flex: 1;
+        height: 100%;
+    }
+}

@@ -39,7 +39,6 @@ function Header() {
                 }
             })
             setBreadNav(nav);
-            console.log(breadNav);
         }
         getNav();
     }, [matches])
