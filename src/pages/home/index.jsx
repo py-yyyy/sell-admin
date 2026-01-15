@@ -32,7 +32,8 @@ function Home() {
             data: [...res.data.date]
           },
           yAxis: {},
-          series: series
+          color: ['#69b1ff', '#ff4d4f', '#95de64', '#fa8c16', '#722ed1', '#13c2c2'],
+          series: series,
         });
       }
     }

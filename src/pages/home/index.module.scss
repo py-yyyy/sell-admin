@@ -4,7 +4,7 @@
     justify-content: space-between;
     height: 100%;
     width: 100%;
-    padding: 20px;
+    // padding: 20px;
     box-sizing: border-box;
 
     .dataItem {
@@ -23,7 +23,7 @@
 
 
         .dataItemContent {
-            width: 280px;
+            width: 300px;
             box-sizing: border-box;
             background-color: #fff;
             border-radius: 5px;
@@ -79,6 +79,6 @@
         padding: 20px 0;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-        margin-top: 30px;
+        margin-top: 20px;
     }
 }

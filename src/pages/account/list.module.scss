@@ -1,0 +1,48 @@
+@mixin publicStyle {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.accountList {
+    color: #333;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .accountListHeader {
+        height: 85px;
+        @include publicStyle;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+            margin: 0;
+            background: #fffbfc;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid #f0f0f0;
+            cursor: pointer;
+        }
+    }
+
+    .accountListContent {
+        flex: 1;
+        overflow-y: scroll;
+        scrollbar-width: none;
+        @include publicStyle;
+        .tableRow{
+            background: #fffbfc;
+        }
+        .accountListTable{
+            height: 95%;
+            overflow-y: scroll;
+            scrollbar-width: none;
+        }
+    }
+}

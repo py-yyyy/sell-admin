@@ -67,8 +67,11 @@ const getLevelKeys = items1 => {
 const levelKeys = getLevelKeys(items);
 function MenuComponent() {
     const navigate = useNavigate();
+    //获取当前路由匹配到的 所有层级路由信息
     const location = useLocation();
+    //获取当前路由的完整信息（路径、参数、状态等）
     const matches = useMatches();
+    //获取当前路由匹配信息[当前路由，子路由]
     const currentPath = [matches[0].pathname, location.pathname];
     const [stateOpenKeys, setStateOpenKeys] = useState(currentPath);
     // 当路由改变时，更新打开项，保持当前层级打开
@@ -80,6 +83,8 @@ function MenuComponent() {
         }
         setOpenKeys();
     }, [location.pathname, matches]);
+
+
     const onOpenChange = openKeys => {
         const currentOpenKey = openKeys.find(key => !stateOpenKeys.includes(key));
         // open
