@@ -1,0 +1,23 @@
+@mixin publicStyle {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+.pageHeader {
+    height: 85px;
+    @include publicStyle;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+        margin: 0;
+        background: #fffbfc;
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: 1px solid #f0f0f0;
+        cursor: pointer;
+    }
+}

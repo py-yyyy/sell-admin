@@ -1,7 +1,11 @@
+import PageHeader from '@/components/pageHeader/pageHeader';
+import style from './edit.module.scss';
+
 function AccountEdit() {
   return (
     <div>
-      <h1>AccountEdit</h1>
+      <PageHeader icon="icon-zhanghao" title="修改密码">
+      </PageHeader>
     </div>
   );
 }

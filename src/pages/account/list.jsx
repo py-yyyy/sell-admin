@@ -2,6 +2,7 @@ import style from './list.module.scss';
 import { Divider, Button, Table, Pagination, Modal, Form, Input, Select,message } from 'antd';
 import { useState, useEffect,useCallback } from 'react';
 import { getAccountListApi,editAccountApi,delAccountApi,batchDelAccountApi } from '@/api/accountList';
+import PageHeader from '@/components/pageHeader/pageHeader';
 function AccountList() {
   //选中行
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -136,20 +137,14 @@ function AccountList() {
   return (
     <>
       <div className={style.accountList}>
-        <div className={style.accountListHeader}>
-          <p>
-            <i className="iconfont icon-zhanghao" style={{ marginRight: 10 }}></i>
-            账号列表
-          </p>
-          <div>
-            <Button color="pink" variant="filled" style={{ marginRight: 10 }} disabled={!(selectedRowKeys.length > 0)} onClick={batchDelAccount}>
+        <PageHeader icon="icon-zhanghao" title="账号列表">
+          <Button color="pink" variant="filled" style={{ marginRight: 10 }} disabled={!(selectedRowKeys.length > 0)} onClick={batchDelAccount}>
               批量删除
             </Button>
             <Button color="default" variant="filled" onClick={() => { setSelectedRowKeys([]) }}>
               取消选择
             </Button>
-          </div>
-        </div>
+        </PageHeader>
         <div className={style.accountListContent}>
           <div className={style.accountListTable}>
             <Table rowSelection={rowSelection} columns={columns} dataSource={tableData} pagination={false} sticky={{ top: 0 }} />
