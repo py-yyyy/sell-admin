@@ -85,6 +85,10 @@ function AccountList() {
   const handleOk = async() => {
     // 校验表单字段
     const values = await form.validateFields();
+    if(values.account === ''){
+      message.error('账号不能为空');
+      return;
+    }
     const res = await editAccountApi({...values,id:editForm.id});
     if(res.code === 0){
       //编辑成功后刷新账号列表
@@ -176,8 +180,7 @@ function AccountList() {
           <Form.Item label="用户组" name="userGroup" style={{ margin: '40px 20px' }}>
             <Select placeholder="请选择用户组" style={{ width: 400 }} defaultValue={editForm.userGroup} options={
               [
-                { value: '普通用户', label: '普通用户' },
-                { value: '管理员', label: '管理员' },
+                { value: '普通管理员', label: '普通管理员' },
                 { value: '超级管理员', label: '超级管理员' },
               ]
             } />

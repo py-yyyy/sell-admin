@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { Dropdown, Space } from 'antd';
-import { getAccountInfoApi } from '@/api/accountAdd';
+import { getAccountInfoApi } from '@/api/home';
 import { serverURL } from '@/utils/request';
 import { useMatches } from 'react-router-dom';
 import routes from '@/router';
