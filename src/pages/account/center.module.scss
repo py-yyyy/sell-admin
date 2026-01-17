@@ -1,0 +1,21 @@
+@mixin publicStyle {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+.AccountCenter{
+    height: 100%;
+    color: #333;
+    .centerContent{
+        @include publicStyle;
+        display: flex;
+        align-items: start;
+        .avatar{
+            width: 200px;
+            height: 200px;
+            // margin-right: 50px;
+            border-radius: 10px;
+        }
+    }
+}

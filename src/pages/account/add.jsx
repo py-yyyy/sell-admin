@@ -46,13 +46,9 @@ function AccountAdd() {
             <Form.Item
               label="密&nbsp;&nbsp;&nbsp;码"
               name="password"
-              rules={[{ required: true, message: '请输入密码!' },
-                { min: 6, message: '账号长度不能小于6位!' },
-                { max: 12, message: '账号长度不能大于12位!' },
-                { pattern: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]+$/, message: '账号只能由数字和字母组成，且必须同时包含数字和字母！' },
-              ]}
+              rules={[{ required: true, message: '请输入密码!' }]}
             >
-              <Input.Password placeholder='请输入6-12位由字母和数字组成的密码'/>
+              <Input.Password placeholder='请输入密码'/>
             </Form.Item>
             <Form.Item
               label="用户组"

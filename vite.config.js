@@ -8,14 +8,5 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     },
-  },
-  // server: {
-  //   proxy: {
-  //     '/api': {
-  //       target: 'http://8.137.157.16',
-  //       changeOrigin: true,
-  //       rewrite: (path) => path.replace(/^\/api/, ''),
-  //     },
-  //   },
-  // },
+  }
 })

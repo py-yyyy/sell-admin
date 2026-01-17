@@ -3,6 +3,7 @@ import { Divider, Button, Table, Pagination, Modal, Form, Input, Select,message 
 import { useState, useEffect,useCallback } from 'react';
 import { getAccountListApi,editAccountApi,delAccountApi,batchDelAccountApi } from '@/api/accountList';
 import PageHeader from '@/components/pageHeader/pageHeader';
+import { timeFormat } from '@/utils/date';
 function AccountList() {
   //选中行
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -20,7 +21,7 @@ function AccountList() {
       res.data.map(item => {
         //为表格数据添加唯一key
         item.key = item.id;
-        item.ctime = new Date(item.ctime).toLocaleString();
+        item.ctime = timeFormat(item.ctime);
       })
       setTableData(res.data);
       setTotal(res.total);
