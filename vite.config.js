@@ -8,5 +8,15 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     },
-  }
+  },
+  // server: {
+  //   port: 5173, // 你的本地端口
+  //   proxy: {
+  //     '/users': {
+  //       target: 'http://8.137.157.16:9002',
+  //       changeOrigin: true,
+  //       rewrite: (path) => path
+  //     }
+  //   }
+  // }
 })

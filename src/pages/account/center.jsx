@@ -6,7 +6,10 @@ import { timeFormat } from '@/utils/date';
 import { serverURL } from '@/utils/request';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
+import { useDispatch } from 'react-redux';
+import { setUserAvatar } from '@/store/modules/userStore';
 function AccountCenter() {
+  const dispatch = useDispatch();
   //获取个人中心信息
   const [userInfo, setUserInfo] = useState({});
   useEffect(() => {
@@ -14,35 +17,44 @@ function AccountCenter() {
       const id = JSON.parse(localStorage.getItem('user')).id;
       const res = await getAccountCenterApi({ id });
       setUserInfo(res.accountInfo);
+
     }
     getAccountCenter();
-  }, [])
+  },[setUserInfo])
   //上传头像
-    const updateAvatar = async (imgUrl) => {
-    const res = await updateAvatarApi({ id: userInfo.id, imgUrl });
-    if(res.code === 0){
-      message.success(res.msg);
-      setUserInfo({ ...userInfo, imgUrl: imgUrl });
-    } else {
-      message.error(res.msg);
-    }
-  }
+  //   const updateAvatar = async (imgUrl) => {
+  //   const res = await updateAvatarApi({ id: userInfo.id, imgUrl });
+  //   if(res.code === 0){
+  //     message.success(res.msg);
+  //     setUserInfo({ ...userInfo, imgUrl: imgUrl });
+  //   } else {
+  //     message.error(res.msg);
+  //   }
+  // }
   const [loading, setLoading] = useState(false);
+  // 自定义上传函数
   const customUpload = async (option) => {
+    //option：上传文件的选项
+    //解构file
     const { file } = option;
     setLoading(true);
+    // 创建formData对象
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('id', userInfo.id);
-    const res = await uploadAvatarApi(formData);
+    //这里向服务器上传头像时传入id，服务器会根据id更新用户头像，不用手动调用修改头像的接口
+    const res = await uploadAvatarApi({formData,id:userInfo.id});
     if(res.code === 0){
-      // setUserInfo({ ...userInfo, imgUrl: res.imgUrl });
-      await updateAvatar(res.imgUrl);
+      message.success(res.msg);
+      setUserInfo({ ...userInfo, imgUrl: res.imgUrl });
+      // await updateAvatar(res.imgUrl);
+      // 头像上传成功后，更新Redux状态,同步header头像
+      dispatch(setUserAvatar(res.imgUrl));
     } else {
       message.error(res.msg);
     }
     setLoading(false);
   }
+  // 上传按钮
   const uploadButton = (
     <button style={{ border: 0, background: 'none', width: '100%' }} type="button">
       <div style={{ marginTop: 8, width: '100%' }}>
@@ -50,6 +62,7 @@ function AccountCenter() {
       </div>
     </button>
   );
+  // 上传前的校验
   const beforeUpload = file => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {

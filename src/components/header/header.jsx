@@ -8,12 +8,16 @@ import { getAccountInfoApi } from '@/api/home';
 import { serverURL } from '@/utils/request';
 import { useMatches } from 'react-router-dom';
 import routes from '@/router';
+import { setUserInfo } from "@/store/modules/userStore";
+import { useDispatch ,useSelector} from "react-redux";
 function Header() {
+    const dispatch = useDispatch();
+    const userInfo = useSelector(state => state.user.user);
     //获取当前路由匹配信息
     const matches = useMatches();
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
-    const [accountInfo, setAccountInfo] = useState({});
+    // const [accountInfo, setAccountInfo] = useState({});
     const [breadNav, setBreadNav] = useState([]);
     const navigateTo = (path) => {
         //如果点击的是当前路由，不跳转
@@ -24,7 +28,9 @@ function Header() {
         //获取当前用户信息
         async function getInfo() {
             const res = await getAccountInfoApi({ id: user.id });
-            setAccountInfo({ ...res.accountInfo });
+            // setAccountInfo({ ...res.accountInfo });
+            //将用户信息存储到store中
+            dispatch(setUserInfo({ ...res.accountInfo }));
         }
         getInfo();
     }, [user.id])
@@ -83,13 +89,13 @@ function Header() {
                     <Dropdown menu={{ items }}>
                         <a onClick={e => e.preventDefault()}>
                             <Space style={{ cursor: 'pointer' }}>
-                                欢迎 <span style={{ color: '#4495F6', fontWeight: 'bold' }}>{accountInfo.account}</span> 登录
+                                欢迎 <span style={{ color: '#4495F6', fontWeight: 'bold' }}>{userInfo?.account}</span> 登录
                                 <DownOutlined />
                             </Space>
                         </a>
                     </Dropdown>
                     <div className={style.headerUserImg}>
-                        <img src={serverURL + accountInfo.imgUrl} alt="" />
+                        <img src={serverURL + userInfo?.imgUrl} alt="" />
                     </div>
                 </div>
             </div>

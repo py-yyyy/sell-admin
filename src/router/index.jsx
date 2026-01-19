@@ -9,11 +9,13 @@ const AccountCenter = lazy(() => import("@/pages/account/center"));
 const AccountEdit = lazy(() => import("@/pages/account/edit"));
 const GoodsAdd = lazy(() => import("@/pages/goods/add"));
 const GoodsList = lazy(() => import("@/pages/goods/list"));
+const GoodsEdit = lazy(() => import("@/pages/goods/edit"));
 const GoodsTypes = lazy(() => import("@/pages/goods/types"));
 const Order = lazy(() => import("@/pages/order"));
 const Shop = lazy(() => import("@/pages/shop"));
 const GoodsStatistics = lazy(() => import("@/pages/statistics/goods"));
 const OrderStatistics = lazy(() => import("@/pages/statistics/order"));
+
 
 
 const routes = createHashRouter([
@@ -133,6 +135,16 @@ const routes = createHashRouter([
                 data: {
                     page: '商品列表',
                     path: '/goods/list',
+                    fatherPage: '商品管理',
+                    fatherPagePath: '/goods',
+                },
+            },
+            {
+                path: "/goods/edit",
+                element: <GoodsEdit />,
+                data: {
+                    page: '编辑商品',
+                    path: '/goods/edit',
                     fatherPage: '商品管理',
                     fatherPagePath: '/goods',
                 },

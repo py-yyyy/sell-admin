@@ -4,8 +4,8 @@ export const getAccountCenterApi = async(params) => {
     return instance.get('/users/accountinfo',{params});
 }
 
-export const uploadAvatarApi = async(formData) => {
-    return instance.post('/users/avatar_upload', formData);
+export const uploadAvatarApi = async({formData,id}) => {
+    return instance.post(`/users/avatar_upload?id=${id}`, formData);
 }
 
 export const updateAvatarApi = async(params) => {

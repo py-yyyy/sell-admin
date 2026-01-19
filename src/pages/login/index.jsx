@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-// import { useState } from "react";
 import { loginApi } from "@/api/login";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import style from './index.module.scss'
 import { Button, Form, Input, message } from 'antd';
 import logo from '@/assets/login/yaoshi.png'
+
 function Login() {
   const navigate = useNavigate();
   const onFinish = async (values) => {
@@ -14,7 +14,7 @@ function Login() {
     });
     if (res.code === 0) {
       message.info(res.msg);
-      localStorage.setItem('user', JSON.stringify({...res,user:values.account}));
+      localStorage.setItem('user', JSON.stringify({ ...res, user: values.account }));
       navigate('/home');
     } else {
       message.error(res.msg);

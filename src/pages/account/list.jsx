@@ -1,10 +1,33 @@
 import style from './list.module.scss';
-import { Divider, Button, Table, Pagination, Modal, Form, Input, Select,message } from 'antd';
-import { useState, useEffect,useCallback } from 'react';
-import { getAccountListApi,editAccountApi,delAccountApi,batchDelAccountApi } from '@/api/accountList';
+import { Divider, Button, Table, Pagination, Modal, Form, Input, Select, message } from 'antd';
+import { useState, useEffect, useCallback } from 'react';
+import { getAccountListApi, editAccountApi, delAccountApi, batchDelAccountApi } from '@/api/accountList';
 import PageHeader from '@/components/pageHeader/pageHeader';
 import { timeFormat } from '@/utils/date';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { createStyles } from 'antd-style';
+
+const useStyle = createStyles(({ css, token }) => {
+  const { antCls } = token;
+  return {
+    customTable: css`
+      ${antCls}-table {
+        ${antCls}-table-container {
+          ${antCls}-table-body,
+          ${antCls}-table-content {
+            scrollbar-width: thin;
+            scrollbar-color: #eaeaea transparent;
+          }
+        }
+      }
+    `,
+  };
+});
 function AccountList() {
+  const { styles } = useStyle();
+  const navigate = useNavigate();
+  const userInfo = useSelector(state => state.user.user);
   //选中行
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   //表格数据
@@ -14,22 +37,22 @@ function AccountList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   //获取账号列表
-  const getAccountList = useCallback(async() => {
+  const getAccountList = useCallback(async () => {
     const res = await getAccountListApi({ currentPage, pageSize });
-      //拿到的ctime是ISO 8601 国际标准格式 的时间（UTC 时间字符串）
-      //转换为北京时间
-      res.data.map(item => {
-        //为表格数据添加唯一key
-        item.key = item.id;
-        item.ctime = timeFormat(item.ctime);
-      })
-      setTableData(res.data);
-      setTotal(res.total);
-  },[currentPage, pageSize])
+    //拿到的ctime是ISO 8601 国际标准格式 的时间（UTC 时间字符串）
+    //转换为北京时间
+    res.data.map(item => {
+      //为表格数据添加唯一key
+      item.key = item.id;
+      item.ctime = timeFormat(item.ctime);
+    })
+    setTableData(res.data);
+    setTotal(res.total);
+  }, [currentPage, pageSize])
   useEffect(() => {
     getAccountList();
     //当currentPage或pageSize变化时重新获取账号列表
-  }, [currentPage, pageSize,getAccountList])
+  }, [currentPage, pageSize, getAccountList])
   //选中行变化时修改选中行的key
   const onSelectChange = newSelectedRowKeys => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -83,59 +106,67 @@ function AccountList() {
     setIsModalOpen(true);
   }
   //编辑弹窗确认按钮
-  const handleOk = async() => {
+  const handleOk = async () => {
     // 校验表单字段
     const values = await form.validateFields();
-    if(values.account === ''){
+    if (values.account === '') {
       message.error('账号不能为空');
       return;
     }
-    const res = await editAccountApi({...values,id:editForm.id});
-    if(res.code === 0){
+    const res = await editAccountApi({ ...values, id: editForm.id });
+    if (res.code === 0) {
       //编辑成功后刷新账号列表
       getAccountList();
       setIsModalOpen(false);
-      }else{
-        message.error(res.msg);
+      if (editForm.id === userInfo.id) {
+        //编辑的账号是当前登录账号，需要重新登录
+        message.warning(`${res.msg}请重新登录`);
+        localStorage.removeItem('user');
+        navigate('/login');
+      } else {
+        message.success(res.msg);
       }
+    } else {
+      message.error(res.msg);
+    }
   };
   //删除账号
-  const delAccount = async(item) => {
+  const delAccount = async (item) => {
     //确认删除
-     Modal.confirm({
+    Modal.confirm({
       title: '确认删除该账号吗？',
       okText: '确认',
       okType: 'danger',
-      onOk: async() => {
-        const res = await delAccountApi({id:item.id});
-        if(res.code === 0){
+      onOk: async () => {
+        const res = await delAccountApi({ id: item.id });
+        if (res.code === 0) {
           //删除成功后刷新账号列表
           getAccountList();
           message.success(res.msg);
-          }else{
-            message.error(res.msg);
-          }
+        } else {
+          message.error(res.msg);
+        }
       },
     })
   };
   //批量删除账号
-  const batchDelAccount = async() => {
+  const batchDelAccount = async () => {
     console.log(selectedRowKeys);
     //确认删除
-     Modal.confirm({
+    Modal.confirm({
       title: '确认删除选中的账号吗？',
       okText: '确认',
       okType: 'danger',
-      onOk: async() => {
+      onOk: async () => {
         //文档要求：ids参数为json字符串
-        const res = await batchDelAccountApi({ids:JSON.stringify(selectedRowKeys)});
-        if(res.code === 0){
+        const res = await batchDelAccountApi({ ids: JSON.stringify(selectedRowKeys) });
+        if (res.code === 0) {
           //删除成功后刷新账号列表
           getAccountList();
           message.success(res.msg);
-          }else{
-            message.error(res.msg);
-          }
+        } else {
+          message.error(res.msg);
+        }
       },
     })
   };
@@ -144,22 +175,22 @@ function AccountList() {
       <div className={style.accountList}>
         <PageHeader icon="icon-zhanghao" title="账号列表">
           <Button color="pink" variant="filled" style={{ marginRight: 10 }} disabled={!(selectedRowKeys.length > 0)} onClick={batchDelAccount}>
-              批量删除
-            </Button>
-            <Button color="default" variant="filled" onClick={() => { setSelectedRowKeys([]) }}>
-              取消选择
-            </Button>
+            批量删除
+          </Button>
+          <Button color="default" variant="filled" onClick={() => { setSelectedRowKeys([]) }}>
+            取消选择
+          </Button>
         </PageHeader>
         <div className={style.accountListContent}>
           <div className={style.accountListTable}>
-            <Table rowSelection={rowSelection} columns={columns} dataSource={tableData} pagination={false} sticky={{ top: 0 }} />
+            <Table rowSelection={rowSelection} columns={columns} dataSource={tableData} pagination={false} scroll={{ y: 50 * 10}} className={styles.customTable} />
           </div>
           {/* antd默认设置当total小于50时不显示分页器，使用showSizeChanger属性显示分页器 */}
           <Pagination
             onChange={onChange}
             total={total}
             showTotal={total => `共 ${total} 条数据`}
-            defaultPageSize={10}
+            defaultPageSize={pageSize}
             defaultCurrent={1}
             style={{ marginTop: 10, display: 'flex', justifyContent: 'center' }}
             showSizeChanger={true}
