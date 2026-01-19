@@ -1,6 +1,5 @@
 import style from './list.module.scss';
 import PageHeader from '@/components/pageHeader/pageHeader';
-import { createStyles } from 'antd-style';
 import { Table, Pagination, Button } from 'antd';
 import { getGoodsListApi, delGoodsItemApi } from '@/api/goodsList';
 import { useEffect, useState } from 'react';
@@ -8,25 +7,9 @@ import { serverURL } from '@/utils/request';
 import { timeFormat } from '@/utils/date';
 import { Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
-const useStyle = createStyles(({ css, token }) => {
-  const { antCls } = token;
-  return {
-    customTable: css`
-      ${antCls}-table {
-        ${antCls}-table-container {
-          ${antCls}-table-body,
-          ${antCls}-table-content {
-            scrollbar-width: thin;
-            scrollbar-color: #eaeaea transparent;
-          }
-        }
-      }
-    `,
-  };
-});
+
 function GoodsList() {
   const navigate = useNavigate();
-  const { styles } = useStyle();
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
@@ -108,7 +91,7 @@ function GoodsList() {
                 rowExpandable: record => record.name !== 'Not Expandable',
               }}
               dataSource={tableData}
-              scroll={{ y: 50 * 10 }} className={styles.customTable}
+              sticky={{ top: 0 }}
               pagination={false}
             />
           </div>

@@ -6,26 +6,8 @@ import PageHeader from '@/components/pageHeader/pageHeader';
 import { timeFormat } from '@/utils/date';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createStyles } from 'antd-style';
 
-const useStyle = createStyles(({ css, token }) => {
-  const { antCls } = token;
-  return {
-    customTable: css`
-      ${antCls}-table {
-        ${antCls}-table-container {
-          ${antCls}-table-body,
-          ${antCls}-table-content {
-            scrollbar-width: thin;
-            scrollbar-color: #eaeaea transparent;
-          }
-        }
-      }
-    `,
-  };
-});
 function AccountList() {
-  const { styles } = useStyle();
   const navigate = useNavigate();
   const userInfo = useSelector(state => state.user.user);
   //选中行
@@ -183,7 +165,7 @@ function AccountList() {
         </PageHeader>
         <div className={style.accountListContent}>
           <div className={style.accountListTable}>
-            <Table rowSelection={rowSelection} columns={columns} dataSource={tableData} pagination={false} scroll={{ y: 50 * 10}} className={styles.customTable} />
+            <Table rowSelection={rowSelection} columns={columns} dataSource={tableData} pagination={false} sticky={{ top: 0 }} />
           </div>
           {/* antd默认设置当total小于50时不显示分页器，使用showSizeChanger属性显示分页器 */}
           <Pagination

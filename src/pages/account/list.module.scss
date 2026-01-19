@@ -12,10 +12,15 @@
     flex-direction: column;
 
     .accountListContent {
-        flex: 1 1 0;
         @include publicStyle;
-        .accountListTable{
+        flex: 1 1 0;
+        overflow-y: auto;
+        scrollbar-width: none;
+
+        .accountListTable {
             height: 95%;
+            overflow-y: auto;
+            scrollbar-width: none;
         }
     }
 }
