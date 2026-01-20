@@ -1,5 +1,5 @@
 import style from './list.module.scss';
-import { Divider, Button, Table, Pagination, Modal, Form, Input, Select, message } from 'antd';
+import { Button, Table, Pagination, Modal, Form, Input, Select, message } from 'antd';
 import { useState, useEffect, useCallback } from 'react';
 import { getAccountListApi, editAccountApi, delAccountApi, batchDelAccountApi } from '@/api/accountList';
 import PageHeader from '@/components/pageHeader/pageHeader';
