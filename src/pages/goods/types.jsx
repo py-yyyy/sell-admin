@@ -121,11 +121,12 @@ function GoodsTypes() {
   });
   const handleOk = async () => {
     const cateName = await form.getFieldValue('cateName')
+    const state = await form.getFieldValue('state')
     if (!cateName) {
       message.error('请输入分类名');
       return;
     }
-    const res = await addGoodsTypeApi({ cateName, state: 1 })
+    const res = await addGoodsTypeApi({ cateName, state })
     if (res.code === 0) {
       getTypeList();
       message.success(res.msg);
@@ -173,12 +174,14 @@ function GoodsTypes() {
         open={visible}
         onOk={handleOk}
         onCancel={handleCancel}
-        okText="确认"
-        cancelText="取消"
+        width={600}
       >
-        <Form form={form} layout="vertical" style={{ width: '500px' }}>
-          <Form.Item name="cateName" label="分类名" rules={[{ required: true, message: '请输入分类名' }]} style={{ margin: '40px 20px' }}>
-            <Input placeholder="请输入分类名" />
+        <Form form={form} >
+          <Form.Item name="cateName" label="分类名" rules={[{ required: true, message: '请输入分类名' }]}  style={{ margin: '40px 20px'}}>
+            <Input placeholder="请输入分类名" style={{ width: 400 }} />
+          </Form.Item>
+          <Form.Item name="state" label="是否启用" style={{ margin: '40px 20px', display: 'flex'}}>
+            <Switch defaultChecked value={1} />
           </Form.Item>
         </Form>
       </Modal>
