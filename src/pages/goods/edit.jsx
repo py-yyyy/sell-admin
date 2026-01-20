@@ -3,7 +3,7 @@ import style from './edit.module.scss'
 import { Button, Form, Input, Select, InputNumber, message, Upload } from 'antd';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getGoodsItemInfoApi, uploadGoodsImgApi, editGoodsItemApi } from '@/api/goodsEdit';
-import { getGoodsCategoriesApi } from '@/api/goodsCategories';
+import { getGoodsCategoriesApi } from '@/api/goodsType';
 import { useEffect, useState } from 'react';
 import { serverURL } from '@/utils/request';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
@@ -93,6 +93,10 @@ function GoodsEdit() {
     }
     // 提交表单
     const handleSubmit = async (data) => {
+        if(!data.name||!data.category||!data.price||!data.imgUrl||!data.goodsDesc) {
+            message.error('请填写完整商品信息！');
+            return;
+        }
         const res = await editGoodsItemApi({...data,id:id})
         if(res.code === 0){
             message.success(res.msg);
