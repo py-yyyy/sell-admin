@@ -1,0 +1,24 @@
+@mixin publicStyle {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.order {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .orderContent {
+        @include publicStyle;
+        flex: 1 1 0;
+        overflow-y: auto;
+        scrollbar-width: none;
+        .orderTbale {
+            height: 95%;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+    }
+}

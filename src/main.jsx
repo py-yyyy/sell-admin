@@ -9,7 +9,11 @@ import { ConfigProvider } from 'antd'
 import { Provider } from 'react-redux'
 import store from './store/index.jsx'
 import zhCN from 'antd/lib/locale/zh_CN'
-
+// 导入dayjs和日期组件的中文语言包
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+// 设置dayjs的默认语言
+dayjs.locale('zh-cn')
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ConfigProvider locale={zhCN}>
