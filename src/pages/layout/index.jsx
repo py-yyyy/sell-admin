@@ -1,10 +1,22 @@
 import { Outlet } from 'react-router-dom'
 import style from './index.module.scss'
 import React from 'react';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import Menu from '@/components/menu/menu'
 import Header from '@/components/header/header'
+import { useEffect } from 'react';
+import { checkToken } from '@/utils/token';
+import { useNavigate } from 'react-router-dom';
 function Layout() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    async function checkTokenValidity() {
+      const isValid = await checkToken();
+      if (!isValid) {
+        navigate('/login', { replace: true });
+      }
+    }
+    checkTokenValidity();
+  }, [navigate]);
   return (
     <>
       <div className={style.layout}>
