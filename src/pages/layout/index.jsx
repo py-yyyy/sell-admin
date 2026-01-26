@@ -3,20 +3,26 @@ import style from './index.module.scss'
 import React from 'react';
 import Menu from '@/components/menu/menu'
 import Header from '@/components/header/header'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { checkToken } from '@/utils/token';
 import { useNavigate } from 'react-router-dom';
 function Layout() {
   const navigate = useNavigate();
+  const [isTokenValid, setIsTokenValid] = useState(false);
   useEffect(() => {
     async function checkTokenValidity() {
       const isValid = await checkToken();
+      setIsTokenValid(isValid);
       if (!isValid) {
         navigate('/login', { replace: true });
       }
     }
     checkTokenValidity();
-  }, [navigate]);
+  }, []);
+  if (isTokenValid === false) {
+    return null;
+  }
+
   return (
     <>
       <div className={style.layout}>
@@ -28,7 +34,7 @@ function Layout() {
             <Header />
           </div>
           <div className={style.content}>
-              <Outlet className={style.menu} />
+            <Outlet className={style.menu} />
           </div>
         </div>
       </div>
