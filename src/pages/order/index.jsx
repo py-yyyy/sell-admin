@@ -22,12 +22,12 @@ function Order() {
   //表格列配置
   const columns = [
     { title: '订单号', dataIndex: 'orderNo' },
-    { title: '下单时间', dataIndex: 'orderTime' },
     { title: '联系电话', dataIndex: 'phone' },
     { title: '收货人', dataIndex: 'consignee' },
-    { title: '送货地址', dataIndex: 'deliverAddress' },
-    { title: '送达时间', dataIndex: 'deliveryTime' },
     { title: '备注', dataIndex: 'remarks' },
+    { title: '送货地址', dataIndex: 'deliverAddress' },
+    { title: '下单时间', dataIndex: 'orderTime' },
+    { title: '送达时间', dataIndex: 'deliveryTime' },
     {
       title: '订单金额', dataIndex: 'orderAmount', render: (text) => (
         <span style={{ color: 'red', fontWeight: 'bold' }}>￥{text}</span>
@@ -130,8 +130,8 @@ function Order() {
             <Form.Item label="收货人" name="consignee" style={{ margin: '0 20px 0 0' }}>
               <Input placeholder="请输入收货人" />
             </Form.Item>
-            <Form.Item label="手机号" name="phone" style={{ margin: '0 20px 0 0' }}>
-              <Input placeholder="请输入手机号" />
+            <Form.Item label="联系电话" name="phone" style={{ margin: '0 20px 0 0' }}>
+              <Input placeholder="请输入联系电话" />
             </Form.Item>
             <Form.Item label="订单状态" name="orderState" style={{ margin: '0 20px 0 0' }}>
               <Select placeholder="请选择订单状态" style={{ width: 100 }} options={[{ label: '已完成', value: '已完成' }, { label: '已受理', value: '已受理' }, { label: '派送中', value: '派送中' }]} />
@@ -172,14 +172,14 @@ function Order() {
         width={800}
         onCancel={() => setVisibleDetail(false)}
       >
-        <div style={{ marginTop: 20 }}>
+        <div style={{ marginTop: 20,backgroundColor:'#fffbfc',padding:10,borderRadius:10 }}>
           <p>订单号：{recordDetail.orderNo}</p>
           <p>下单时间：{recordDetail.orderTime}</p>
           <p>订单金额：<span style={{ color: 'red', fontWeight: 'bold' }}>￥{recordDetail.orderAmount}</span></p>
-          <p>订单状态：<Tag color={recordDetail.orderState === '已完成' ? 'green' : recordDetail.orderState === '已受理' ? 'orange' : 'blue'}>{recordDetail.orderState}</Tag></p>
+          <p>订单状态：<Tag color={recordDetail.orderState === '已完成' ? 'green' : recordDetail.orderState === '已受理' ? 'blue' : 'orange'}>{recordDetail.orderState}</Tag></p>
         </div>
         <Divider dashed />
-        <div>
+        <div style={{ backgroundColor:'#fffbfc',padding:10,borderRadius:10 }}>
           <p>收货人：{recordDetail.consignee}</p>
           <p>联系电话：{recordDetail.phone}</p>
           <p>备注：{recordDetail.remarks || '无'}</p>
@@ -194,7 +194,7 @@ function Order() {
         onOk={() => handleOkEdit()}
         width={800}
       >
-        <Form form={formEdit}>
+        <Form form={formEdit} style={{ marginTop: 20 }}>
           <Form.Item label="订&nbsp;&nbsp;单&nbsp;&nbsp;号" name="orderNo" >
             <Input placeholder="请输入订单号" style={{ width: 400 }} disabled />
           </Form.Item>
@@ -210,19 +210,19 @@ function Order() {
           <Form.Item label="联系电话" name="phone" >
             <Input placeholder="请输入联系电话" style={{ width: 400 }} />
           </Form.Item>
-          <Form.Item label="备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注" name="remarks" >
-            <Input placeholder="请输入备注" style={{ width: 400 }} />
-          </Form.Item>
           <Form.Item label="送货地址" name="deliverAddress" >
             <Input placeholder="请输入送货地址" style={{ width: 400 }} />
           </Form.Item>
           <Form.Item label="送达时间" name="deliveryTime" >
             {/* showTime: true 显示时间选择器 */}
             {/* disabledDate 禁用过去的时间 */}
-            <DatePicker style={{ width: '100%' }} showTime disabledDate={currentDate => currentDate < dayjs(formEdit.getFieldValue('orderTime'))} />
+            <DatePicker style={{ width: 400 }} showTime disabledDate={currentDate => currentDate < dayjs(formEdit.getFieldValue('orderTime'))} />
           </Form.Item>
           <Form.Item label="订单状态" name="orderState" >
-            <Select placeholder="请选择订单状态" style={{ width: 100 }} options={[{ label: '已完成', value: '已完成' }, { label: '已受理', value: '已受理' }, { label: '派送中', value: '派送中' }]} />
+            <Select placeholder="请选择订单状态" style={{ width: 400 }} options={[{ label: '已完成', value: '已完成' }, { label: '已受理', value: '已受理' }, { label: '派送中', value: '派送中' }]} />
+          </Form.Item>
+          <Form.Item label="备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注" name="remarks" >
+            <Input.TextArea placeholder="请输入备注" style={{ width: 400 }} />
           </Form.Item>
         </Form>
       </Modal>
