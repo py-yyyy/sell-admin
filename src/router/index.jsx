@@ -247,6 +247,8 @@ const routes = createHashRouter([
             },
         ]
     }
-]);
+],{
+     basename: "/sell-admin"
+});
 
 export default routes;

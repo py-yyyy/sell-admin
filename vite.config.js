@@ -9,6 +9,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     },
   },
+  base: '/sell-admin/'
   // server: {
   //   port: 5173, // 你的本地端口
   //   proxy: {
