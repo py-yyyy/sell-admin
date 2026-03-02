@@ -246,7 +246,7 @@ const routes = createBrowserRouter([
         ]
     }
 ],{
-    basename: "/sell-admin"
+    basename: "/"
 });
 
 export default routes;
