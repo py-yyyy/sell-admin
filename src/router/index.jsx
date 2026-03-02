@@ -1,4 +1,4 @@
-import { createHashRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import { lazy } from 'react'
 const Login = lazy(() => import("@/pages/login"));
 const Layout = lazy(() => import("@/pages/layout"));
@@ -16,9 +16,7 @@ const Shop = lazy(() => import("@/pages/shop"));
 const GoodsStatistics = lazy(() => import("@/pages/statistics/goods"));
 const OrderStatistics = lazy(() => import("@/pages/statistics/order"));
 
-
-
-const routes = createHashRouter([
+const routes = createBrowserRouter([
     {
         path: "/",
         //一级路由，默认跳转到登录页，重定向
@@ -248,7 +246,7 @@ const routes = createHashRouter([
         ]
     }
 ],{
-     basename: "/sell-admin"
+    basename: "/sell-admin"
 });
 
 export default routes;
