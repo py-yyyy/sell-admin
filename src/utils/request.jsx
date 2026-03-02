@@ -1,5 +1,6 @@
 import axios from 'axios';
-export const serverURL = 'http://8.137.157.16:9002';
+// export const serverURL = 'http://8.137.157.16:9002';
+export const serverURL = window.location.protocol + '//8.137.157.16:9002';
 
 //统一的请求服务器地址
 const instance = axios.create({
@@ -25,9 +26,10 @@ instance.interceptors.response.use(
     return response.data;
   },
   error => {
-    if (error.response.status === 401) {
+    if (error.response && error.response.status === 401) {
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      // window.location.href = '/login';
+      window.location.href = '/sell-admin/login';
     }
     return Promise.reject(error);
   }
