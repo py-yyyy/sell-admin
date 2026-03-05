@@ -1,5 +1,6 @@
 import axios from 'axios';
-export const serverURL = 'http://8.137.157.16:9002';
+// export const serverURL = 'http://8.137.157.16:9002';
+export const serverURL = 'https://api-admin.wled.top';
 
 //统一的请求服务器地址
 const instance = axios.create({
