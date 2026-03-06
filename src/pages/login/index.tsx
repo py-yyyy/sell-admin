@@ -3,11 +3,17 @@ import { loginApi } from "@/api/login";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import style from './index.module.scss'
 import { Button, Form, Input, message } from 'antd';
+import type { FormProps } from 'antd';
 import logo from '@/assets/login/yaoshi.png'
+
+type FieldType = {
+  account: string;
+  password: string;
+}
 
 function Login() {
   const navigate = useNavigate();
-  const onFinish = async (values) => {
+  const onFinish : FormProps<FieldType>['onFinish'] = async (values) => {
     const res = await loginApi({
       account: values.account,
       password: values.password,
@@ -20,7 +26,7 @@ function Login() {
       message.error(res.msg);
     }
   };
-  const onFinishFailed = errorInfo => {
+  const onFinishFailed : FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
   return (
@@ -43,7 +49,7 @@ function Login() {
             label={<UserOutlined />}
             name="account"
             rules={[{ required: true, message: '请输入用户名' }]}
-            className={style.loginInputBox}
+            className={typeof style.loginInputBox === 'string' ? style.loginInputBox : ''}
           >
             <Input placeholder="请输入用户名" className={style.loginInput} />
           </Form.Item>
@@ -52,13 +58,13 @@ function Login() {
             label={<LockOutlined />}
             name="password"
             rules={[{ required: true, message: '请输入密码' }]}
-            className={style.loginInputBox}
+            className={typeof style.loginInputBox === 'string' ? style.loginInputBox : ''}
           >
             <Input.Password placeholder="请输入密码" className={style.loginInput} />
           </Form.Item>
 
           <Form.Item label={null}>
-            <Button type="primary" htmlType="submit" className={style.loginBtn}>
+            <Button type="primary" htmlType="submit" className={typeof style.loginBtn === 'string' ? style.loginBtn : ''}>
               登&nbsp;&nbsp;&nbsp;&nbsp;录
             </Button>
           </Form.Item>
