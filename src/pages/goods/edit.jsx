@@ -13,6 +13,9 @@ function GoodsEdit() {
     //获取传参
     const [params] = useSearchParams();
     const id = params.get('id');
+    const item = JSON.parse(params.get('item'));
+    console.log(item);
+    
     // 表单
     const [form] = Form.useForm();
     // 图片url
@@ -22,16 +25,12 @@ function GoodsEdit() {
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         // 获取当前商品详情
-        async function getGoodsInfo() {
-            const res = await getGoodsItemInfoApi({ id });
-            if (res.code === 0) {
-                // 初始化表单值
-                form.setFieldsValue(res.data)
-                // 初始化图片url
-                setImgUrl(res.data.imgUrl);
-            }
+        function getGoodsInfo() {
+            form.setFieldsValue(item);
+            setImgUrl(item.imgUrl);
         }
         getGoodsInfo();
+        
         // 获取商品分类
         async function getCategories() {
             const res = await getGoodsCategoriesApi();

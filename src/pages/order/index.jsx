@@ -117,7 +117,6 @@ function Order() {
     } else {
       message.error(res.msg);
     }
-
   }
   return (
     <>
@@ -137,7 +136,7 @@ function Order() {
               <Select placeholder="请选择订单状态" style={{ width: 100 }} options={[{ label: '已完成', value: '已完成' }, { label: '已受理', value: '已受理' }, { label: '派送中', value: '派送中' }]} />
             </Form.Item>
             <Form.Item label="选择时间" name="orderTime" style={{ margin: '0 20px 0 0' }}>
-              <DatePicker.RangePicker />
+              <DatePicker.RangePicker  />
             </Form.Item>
             <Form.Item style={{ margin: '0 20px 0 0' }}>
               <Button type="primary" htmlType="submit" onClick={handleSearch}>查询</Button>

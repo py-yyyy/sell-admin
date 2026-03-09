@@ -72,7 +72,7 @@ function GoodsList() {
       render: (item) => (
         <>
           <Button color="primary" variant="filled" style={{ marginRight: 10 }} onClick={() => {
-            navigate(`/goods/edit?id=${item.id}`);
+            navigate(`/goods/edit?item=${JSON.stringify(item)}&id=${item.id}`);
           }}>
             编辑
           </Button>
