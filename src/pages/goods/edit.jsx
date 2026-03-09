@@ -14,7 +14,6 @@ function GoodsEdit() {
     const [params] = useSearchParams();
     const id = params.get('id');
     const item = JSON.parse(params.get('item'));
-    console.log(item);
     
     // 表单
     const [form] = Form.useForm();
