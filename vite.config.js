@@ -8,8 +8,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     },
-  },
-  base: './',
+  }
   // server: {
   //   port: 5173, // 你的本地端口
   //   proxy: {

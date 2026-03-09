@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { checkToken } from '@/utils/token';
 // export const serverURL = 'http://8.137.157.16:9002';
-export const serverURL = 'https://api-admin.wled.top';
+export const serverURL = 'https://api-admin.wled.top/api';
 
 //统一的请求服务器地址
 const instance = axios.create({
@@ -30,7 +30,8 @@ instance.interceptors.response.use(
     if (error.response && error.response.status === 401 || await checkToken() === false) {
       localStorage.removeItem('user');
       // window.location.href = '/login';
-      window.location.href = '/sell-admin/login';
+      const base = import.meta.env.BASE_URL || '/';
+      window.location.href = `${base}login`;
     }
     return Promise.reject(error);
   }
