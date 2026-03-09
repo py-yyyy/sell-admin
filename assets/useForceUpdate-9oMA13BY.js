@@ -1,1 +1,0 @@
-import{r as s,aj as n,z as a,R as x}from"./index-RrqnYFmb.js";const f=(o,c)=>{const t=s.useContext(n),r=s.useMemo(()=>{const e=c||a[o],u=t?.[o]??{};return{...typeof e=="function"?e():e,...u||{}}},[o,c,t]),l=s.useMemo(()=>{const e=t?.locale;return t?.exist&&!e?a.locale:e},[t]);return[r,l]},i=()=>x.useReducer(o=>o+1,0);export{i as a,f as u};
