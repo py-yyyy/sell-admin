@@ -21,16 +21,16 @@ function AccountCenter() {
     }
     getAccountCenter();
   },[setUserInfo])
-  //上传头像
-  //   const updateAvatar = async (imgUrl) => {
-  //   const res = await updateAvatarApi({ id: userInfo.id, imgUrl });
-  //   if(res.code === 0){
-  //     message.success(res.msg);
-  //     setUserInfo({ ...userInfo, imgUrl: imgUrl });
-  //   } else {
-  //     message.error(res.msg);
-  //   }
-  // }
+  // 上传头像
+    const updateAvatar = async (imgUrl) => {
+    const res = await updateAvatarApi({ id: userInfo.id, imgUrl });
+    if(res.code === 0){
+      message.success(res.msg);
+      setUserInfo({ ...userInfo, imgUrl: imgUrl });
+    } else {
+      message.error(res.msg);
+    }
+  }
   const [loading, setLoading] = useState(false);
   // 自定义上传函数
   const customUpload = async (option) => {
@@ -46,7 +46,7 @@ function AccountCenter() {
     if(res.code === 0){
       message.success(res.msg);
       setUserInfo({ ...userInfo, imgUrl: res.imgUrl });
-      // await updateAvatar(res.imgUrl);
+      await updateAvatar(res.imgUrl);
       // 头像上传成功后，更新Redux状态,同步header头像
       dispatch(setUserAvatar(res.imgUrl));
     } else {

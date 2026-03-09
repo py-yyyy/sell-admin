@@ -18,7 +18,7 @@ function Layout() {
       }
     }
     checkTokenValidity();
-  }, []);
+  }, [navigate]);
   if (isTokenValid === false) {
     return null;
   }
