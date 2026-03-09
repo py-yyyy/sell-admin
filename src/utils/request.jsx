@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { checkToken } from '@/utils/token';
 // export const serverURL = 'http://8.137.157.16:9002';
 export const serverURL = 'https://api-admin.wled.top';
 
@@ -25,8 +26,8 @@ instance.interceptors.response.use(
   response => {
     return response.data;
   },
-  error => {
-    if (error.response && error.response.status === 401) {
+   async error => {
+    if (error.response && error.response.status === 401 || await checkToken() === false) {
       localStorage.removeItem('user');
       // window.location.href = '/login';
       window.location.href = '/sell-admin/login';

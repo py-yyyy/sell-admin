@@ -16,7 +16,7 @@ function Header() {
     //获取当前路由匹配信息
     const matches = useMatches();
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'))||{};
     // const [accountInfo, setAccountInfo] = useState({});
     const [breadNav, setBreadNav] = useState([]);
     const navigateTo = (path) => {

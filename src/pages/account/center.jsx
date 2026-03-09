@@ -46,7 +46,7 @@ function AccountCenter() {
     if(res.code === 0){
       message.success(res.msg);
       setUserInfo({ ...userInfo, imgUrl: res.imgUrl });
-      await updateAvatar(res.imgUrl);
+      // await updateAvatar(res.imgUrl);
       // 头像上传成功后，更新Redux状态,同步header头像
       dispatch(setUserAvatar(res.imgUrl));
     } else {
