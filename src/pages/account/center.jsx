@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { timeFormat } from '@/utils/date';
 import { serverURL } from '@/utils/request';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { message, Upload } from 'antd';
+import { message, Upload, Divider } from 'antd';
 import { useDispatch } from 'react-redux';
 import { setUserAvatar } from '@/store/modules/userStore';
 function AccountCenter() {
@@ -22,21 +22,22 @@ function AccountCenter() {
     getAccountCenter();
   },[setUserInfo])
   // 上传头像
-    const updateAvatar = async (imgUrl) => {
-    const res = await updateAvatarApi({ id: userInfo.id, imgUrl });
-    if(res.code === 0){
-      message.success(res.msg);
-      setUserInfo({ ...userInfo, imgUrl: imgUrl });
-    } else {
-      message.error(res.msg);
-    }
-  }
+  //   const updateAvatar = async (imgUrl) => {
+  //   const res = await updateAvatarApi({ id: userInfo.id, imgUrl });
+  //   if(res.code === 0){
+  //     message.success(res.msg);
+  //     setUserInfo({ ...userInfo, imgUrl: imgUrl });
+  //   } else {
+  //     message.error(res.msg);
+  //   }
+  // }
   const [loading, setLoading] = useState(false);
   // 自定义上传函数
   const customUpload = async (option) => {
     //option：上传文件的选项
     //解构file
     const { file } = option;
+    console.log('file:',file);
     setLoading(true);
     // 创建formData对象
     const formData = new FormData();
@@ -84,13 +85,18 @@ function AccountCenter() {
         <div className={style.centerContent}>
           <div className={style.avatarBox}>
             <Upload
+              // 上传前的校验
               beforeUpload={beforeUpload}
+              // 自定义上传函数
               customRequest={customUpload}
+              // 这里的name要和服务器端的参数名一致，例如后端要求formdata.append的key为file，这里name就为file
+              // 如果不使用自定义上传，这里的action要和服务器端的路由一致，例如后端要求路由为/users/avatar_upload，这里action就为/users/avatar_upload
+              // action={`${serverURL}/users/avatar_upload?id=${userInfo.id}`}
               name="avatar"
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}
-              style={{ width: '200px', height: '200px', marginRight: 50 }}
+              style={{ width: '150px', height: '150px', marginRight: 50 }}
             >
               {userInfo.imgUrl ? (
                 <img draggable={false} src={serverURL + userInfo.imgUrl} alt="avatar" style={{ width: '100%' ,borderRadius: 10}} />
@@ -99,11 +105,14 @@ function AccountCenter() {
               )}
             </Upload>
           </div>
-          <div>
-            <p>管理员ID：{userInfo.id}</p>
-            <p>账号：{userInfo.account}</p>
-            <p>用户组：{userInfo.userGroup}</p>
-            <p>创建时间：{timeFormat(userInfo.ctime)}</p>
+          <Divider dashed style={{borderColor:"#dab5c9ff"}} titlePlacement="end">
+            <span style={{color:"#666",fontSize:20,fontWeight:300,cursor:"pointer"}}>个人信息</span>
+          </Divider>
+          <div className={style.infoBox}>
+            <p><span>管理员ID：</span>{userInfo.id}</p>
+            <p><span>账号：</span>{userInfo.account}</p>
+            <p><span>用户组：</span>{userInfo.userGroup}</p>
+            <p><span>创建时间：</span>{timeFormat(userInfo.ctime)}</p>
           </div>
         </div>
       </div>

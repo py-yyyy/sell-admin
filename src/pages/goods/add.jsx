@@ -10,6 +10,9 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 function GoodsAdd() {
   // 表单
   const [form] = Form.useForm();
+  form.setFieldsValue({
+    price: 0,
+  })
   // 图片url
   const [imgUrl, setImgUrl] = useState('');
   // 商品分类
@@ -81,6 +84,7 @@ function GoodsAdd() {
       message.error('请填写完整商品信息！');
       return;
     }
+    data.imgUrl = data.imgUrl.slice(data.imgUrl.lastIndexOf('/') + 1)
     const res = await addGoodsApi({ ...data })
     if (res.code === 0) {
       message.success(res.msg);
@@ -100,16 +104,16 @@ function GoodsAdd() {
           {/* onFinish：表单提交时调用的函数 */}
           <Form form={form} style={{ width: 600 }} onFinish={handleSubmit}>
             <Form.Item name="name" label="商品名称">
-              <Input placeholder="请输入商品名称" />
+              <Input size="large" placeholder="请输入商品名称" />
             </Form.Item>
             <Form.Item name="category" label="商品分类">
-              <Select  placeholder="请选择商品分类" options={categories.map(item => ({
+              <Select size="large" placeholder="请选择商品分类" options={categories.map(item => ({
                 value: item.cateName,
                 label: item.cateName
               }))} />
             </Form.Item>
             <Form.Item name="price" label="商品价格">
-              <InputNumber {...sharedProps} placeholder="价格" />
+              <InputNumber {...sharedProps} placeholder="价格" size="large" />
             </Form.Item>
             <Form.Item name="imgUrl" label="商品图片">
               {/* filelist属性存上传的文件列表，如果需要预览，可以从filelist数组中取值 */}
@@ -137,8 +141,8 @@ function GoodsAdd() {
             <Form.Item name="goodsDesc" label="商品描述">
               <Input.TextArea placeholder="请输入商品描述" />
             </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit" >
+            <Form.Item style={{textAlign:'right'}}>
+              <Button type="primary" htmlType="submit" size="large">
                 添加商品
               </Button>
             </Form.Item>

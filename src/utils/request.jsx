@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { checkToken } from '@/utils/token';
 // export const serverURL = 'http://8.137.157.16:9002';
-export const serverURL = 'https://api-admin.wled.top/api';
+// export const serverURL = 'https://api-admin.wled.top/api';
+export const serverURL = 'http://127.0.0.1:5012'
 
 //统一的请求服务器地址
 const instance = axios.create({

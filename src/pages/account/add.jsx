@@ -1,32 +1,31 @@
-import PageHeader from '@/components/pageHeader/pageHeader';
-import style from './add.module.scss';
-import { Form, Input, Button, message,Select } from 'antd';
-import { postAccountApi } from '@/api/accountAdd';
+import PageHeader from "@/components/pageHeader/pageHeader";
+import style from "./add.module.scss";
+import { Form, Input, Button, message, Select } from "antd";
+import { postAccountApi } from "@/api/accountAdd";
 function AccountAdd() {
   const [form] = Form.useForm();
-  const add = async() => {
+  const add = async () => {
     const data = {
-      account: form.getFieldValue('account'),
-      password: form.getFieldValue('password'),
-      userGroup: form.getFieldValue('userGroup'),
-    }
-    if(!data.account || !data.password || !data.userGroup){
-      message.error('请填写完整信息');
+      account: form.getFieldValue("account"),
+      password: form.getFieldValue("password"),
+      userGroup: form.getFieldValue("userGroup"),
+    };
+    if (!data.account || !data.password || !data.userGroup) {
+      message.error("请填写完整信息");
       return;
     }
     const res = await postAccountApi(data);
-    if(res.code == 0){
-      message.success('添加账号成功');
+    if (res.code == 0) {
+      message.success("添加账号成功");
       form.resetFields();
-    }else{
+    } else {
       message.error(res.msg);
     }
-  }
+  };
   return (
     <>
       <div className={style.AccountAdd}>
-        <PageHeader icon="icon-zhanghao" title="添加账号">
-        </PageHeader>
+        <PageHeader icon="icon-zhanghao" title="添加账号"></PageHeader>
         <div className={style.addContent}>
           <Form
             form={form}
@@ -34,34 +33,59 @@ function AccountAdd() {
             name="basic"
             initialValues={{ remember: true }}
             autoComplete="off"
+            onFinish={add}
           >
             <Form.Item
               label="账&nbsp;&nbsp;&nbsp;号"
               name="account"
-              rules={[{ required: true, message: '请输入账号!' }]}
+              rules={[{ required: true, message: "账号不能为空" }]}
             >
-              <Input placeholder='请输入账号'/>
+              <Input placeholder="请输入账号" />
             </Form.Item>
 
             <Form.Item
               label="密&nbsp;&nbsp;&nbsp;码"
               name="password"
-              rules={[{ required: true, message: '请输入密码!' }]}
+              rules={[
+                { required: true, message: "密码不能为空" },
+                {
+                  pattern:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+={}[\]:;"'<>,.?/~`|\\])[A-Za-z\d!@#$%^&*()_\-+={}[\]:;"'<>,.?/~`|\\]{8,20}$/,
+                  message:
+                    "密码必须8-20位，且必须包含大小写字母、数字和至少1种特殊字符",
+                  trigger: ["blur"],
+                },
+              ]}
             >
-              <Input.Password placeholder='请输入密码'/>
+              <Input.Password placeholder="请输入密码" />
             </Form.Item>
             <Form.Item
               label="用户组"
               name="userGroup"
-              rules={[{ required: true, message: '请选择用户组!' }]}
+              rules={[{ required: true, message: "请选择用户组" }]}
             >
-              <Select placeholder='请选择用户组' options={[{ label: '普通管理员', value: '普通管理员' }, { label: '超级管理员', value: '超级管理员' }]} />
+              <Select
+                placeholder="请选择用户组"
+                options={[
+                  { label: "普通管理员", value: "普通管理员" },
+                  { label: "超级管理员", value: "超级管理员" },
+                ]}
+              />
             </Form.Item>
-            <Form.Item style={{ textAlign: 'center' }}>
-              <Button color="primary" variant="filled" style={{ marginRight: 10 }} onClick={add}>
+            <Form.Item style={{ textAlign: "center" }}>
+              <Button
+                color="primary"
+                variant="filled"
+                style={{ marginRight: 10 }}
+                htmlType="submit"
+              >
                 添加账号
               </Button>
-              <Button color="default" variant="filled" onClick={() => form.resetFields()}>
+              <Button
+                color="default"
+                variant="filled"
+                onClick={() => form.resetFields()}
+              >
                 重置
               </Button>
             </Form.Item>

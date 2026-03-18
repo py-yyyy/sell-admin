@@ -144,7 +144,7 @@ function GoodsTypes() {
     <>
       <div className={style.goodsTypes}>
         <PageHeader title="商品类型" icon="icon icon-shangpin2" >
-          <Button color="primary" variant="outlined" onClick={() => setVisible(true)}>
+          <Button type="primary" color="primary" variant="filled" onClick={() => setVisible(true)}>
             添加分类
           </Button>
         </PageHeader>

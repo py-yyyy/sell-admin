@@ -15,6 +15,7 @@ const Order = lazy(() => import("@/pages/order"));
 const Shop = lazy(() => import("@/pages/shop"));
 const GoodsStatistics = lazy(() => import("@/pages/statistics/goods"));
 const OrderStatistics = lazy(() => import("@/pages/statistics/order"));
+const Error = lazy(() => import("@/pages/error"));
 
 const routes = createBrowserRouter([
     {
@@ -244,6 +245,14 @@ const routes = createBrowserRouter([
                 },
             },
         ]
+    },
+    {
+        path: "*",
+        element:<Error />,
+        data: {
+            page: '错误页面',
+            path: '/error',
+        }
     }
 ],{
     basename: import.meta.env.BASE_URL || '/',
