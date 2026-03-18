@@ -1,0 +1,1 @@
+import{i as o}from"./request-Bq97zXfP.js";const t=async()=>o.get("/goods/categories"),a=async s=>o.get("/goods/catelist",{params:s}),d=async s=>o.get("/goods/delcate",{params:s}),n=async s=>o.post("/goods/editcate",s),c=async s=>o.post("/goods/addcate",s);export{a,c as b,d,n as e,t as g};
